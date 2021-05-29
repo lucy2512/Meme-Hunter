@@ -4,10 +4,12 @@ import android.app.DownloadManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadmeme(){
+
+        var memeimage: ImageView =findViewById(R.id.memeImage)
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
         val url = " https://meme-api.herokuapp.com/gimme"
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             Request.Method.GET, url, null,
         Response.Listener { response ->
             val url = response.getString("url")
+            Glide.with(this).load(url).into(memeimage)
         },
         Response.ErrorListener { error ->
             // TODO: Handle error
@@ -38,5 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     fun shareMeme(view: View) {}
     fun nextMeme(view: View) {
+        loadmeme()
     }
 }
