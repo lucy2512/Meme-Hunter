@@ -1,11 +1,19 @@
 package com.parthib.memehunter
 
 import android.app.DownloadManager
+import android.content.ClipData
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -25,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
         loadmeme()
     }
 
@@ -34,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         var memeimage: ImageView =findViewById(R.id.memeImage)
         var progressbar: ProgressBar = findViewById(R.id.progressbar)
+
         progressbar.visibility=View.VISIBLE
         // Instantiate the RequestQueue.
         //val queue = Volley.newRequestQueue(this)
@@ -87,5 +97,27 @@ class MainActivity : AppCompatActivity() {
     }
     fun nextMeme(view: View) {
         loadmeme()
+    }
+
+
+
+    //Added Download Button
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.downbutton -> {
+
+
+
+                    return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
