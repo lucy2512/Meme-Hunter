@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     var currentImageUrl : String ?= null
 
+
     private fun loadmeme(){
 
         var memeimage: ImageView =findViewById(R.id.memeImage)
@@ -100,6 +101,21 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    //Image downloading function
+    fun startdownloading(){
+        val request = DownloadManager.Request(Uri.parse(currentImageUrl))
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+        request.setTitle("Meme Hunter")
+        request.setDescription("$currentImageUrl")
+
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION)
+
+
+        val manager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        manager.enqueue(request)
+
+    }
 
     //Added Download Button
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,9 +129,10 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.downbutton -> {
 
+                startdownloading()
+                Toast.makeText(this, "Download Complete!", Toast.LENGTH_LONG).show()
+                return true
 
-
-                    return true
             }
             else -> super.onOptionsItemSelected(item)
         }
